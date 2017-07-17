@@ -1,0 +1,26 @@
+{
+  "name": "pixi-shaders",
+  "version": "1.0.0",
+  "description": "pixi shaders to be updated for pixi v4",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "dependencies": {
+    "glslify": "^6.1.0",
+    "pixify": "^1.9.0"
+  },
+  "devDependencies": {},
+  "browserify": {
+    "transform": [
+      "glslify"
+    ]
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:blueinvert": "pixify -s src/blueinvert -n blueinvert",
+    "build:blueraise": "pixify -s src/blueraise -n blueraise"
+  },
+  "author": "Julian Smith De Niro",
+  "license": "ISC"
+}
