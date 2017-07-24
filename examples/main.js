@@ -16,3 +16,5 @@ app.ticker.add(function() {
 })
 
 window._imageToFilter = imageToFilter;
+
+_imageToFilter.filters = [new PIXI.filters.TwistFilter()];

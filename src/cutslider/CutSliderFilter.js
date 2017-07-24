@@ -1,58 +1,74 @@
+// /**
+//  * @author Matt Smith http://gun.net.au @ktingvoar
+//  */
+// // @see https://github.com/substack/brfs/issues/25
+
+var glslify  = require('glslify');
+
+// TODO (cengler) - The Y is flipped in this shader for some reason.
+
 /**
- * @author Matt Smith http://gun.net.au @ktingvoar
+ * @author Vico @vicocotea
+ * original shader : https://www.shadertoy.com/view/lssGDj by @movAX13h
  */
-var core = require('../../node_modules/pixi.js/src/core');
-// @see https://github.com/substack/brfs/issues/25
-var fs = require('fs');
 
-function CutSliderFilter() {
-    PIXI.AbstractFilter.call(this,
-      
-      null,
-
-      fs.readFileSync(__dirname + '/cutslider.frag', 'utf8'),
-
-
-      {
-          rand: {type: '1f', value: 5},
-          val1: {type: '1f', value: 150},
-          val2: {type: '1f', value: 20},
-          dimensions: {type: '4fv', value: [0, 0, 0, 0]}
-      }
+/**
+ * An ASCII filter.
+ *
+ * @class
+ * @extends PIXI.Filter
+ * @memberof PIXI.filters
+ */
+function CutSliderFilter()
+{
+    PIXI.Filter.call(this,
+        // vertex shader
+        glslify('../default.vert'),
+        // fragment shader
+        glslify('./cutslider.frag'),
+        // Uniforms
+        {
+            rand: {
+                type: '1f', 
+                value: 5.0
+            },
+            val1: {
+                type: '1f', 
+                value: 150.0
+            },
+            val2: {
+                type: '1f', 
+                value: 20.0
+            },
+            dimensions: {
+                type: '4fv', 
+                value: [10.0, 10.0, 10.0, 10.0]
+            }
+        }
     );
-};
 
-CutSliderFilter.prototype = Object.create(core.AbstractFilter.prototype);
+    this.size = 8;
+}
+
+CutSliderFilter.prototype = Object.create(PIXI.Filter.prototype);
 CutSliderFilter.prototype.constructor = CutSliderFilter;
-
-Object.defineProperty(CutSliderFilter.prototype, 'rand', {
-    get: function() {
-        return this.uniforms.rand.value;
-    },
-    set: function(value) {
-        this.dirty = true;
-        this.uniforms.rand.value = value;
-    }
-});
-
-Object.defineProperty(CutSliderFilter.prototype, 'val1', {
-    get: function() {
-        return this.uniforms.val1.value;
-    },
-    set: function(value) {
-        this.dirty = true;
-        this.uniforms.val1.value = value;
-    }
-});
-
-Object.defineProperty(CutSliderFilter.prototype, 'val2', {
-    get: function() {
-        return this.uniforms.val2.value;
-    },
-    set: function(value) {
-        this.dirty = true;
-        this.uniforms.val2.value = value;
-    }
-});
-
 module.exports = CutSliderFilter;
+
+Object.defineProperties(CutSliderFilter.prototype, {
+    /**
+     * The pixel size used by the filter.
+     *
+     * @member {number}
+     * @memberof PIXI.filters.CutSliderFilter#
+     */
+    size: {
+        get: function ()
+        {
+            return this.uniforms.pixelSize;
+        },
+        set: function (value)
+        {
+            this.uniforms.pixelSize = value;
+        }
+    }
+});

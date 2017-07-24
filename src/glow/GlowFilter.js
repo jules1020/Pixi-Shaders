@@ -1,36 +1,66 @@
+// /**
+//  * @author Matt Smith http://gun.net.au @ktingvoar
+//  */
+// // @see https://github.com/substack/brfs/issues/25
+
+var glslify  = require('glslify');
+
+// TODO (cengler) - The Y is flipped in this shader for some reason.
+
 /**
- * @author Matt Smith http://gun.net.au @ktingvoar
+ * @author Vico @vicocotea
+ * original shader : https://www.shadertoy.com/view/lssGDj by @movAX13h
  */
-var core = require('../../node_modules/pixi.js/src/core');
-// @see https://github.com/substack/brfs/issues/25
-var fs = require('fs');
 
-function GlowFilter() {
-    PIXI.AbstractFilter.call(this,
+/**
+ * An ASCII filter.
+ *
+ * @class
+ * @extends PIXI.Filter
+ * @memberof PIXI.filters
+ */
+function GlowFilter()
+{
+    PIXI.Filter.call(this,
+        // vertex shader
+        glslify('../default.vert'),
+        // fragment shader
+        glslify('./glow.frag'),
+        // Uniforms
+        {
+            blur_w: {
+                type: '1i', 
+                value: 10.0
+            },
+            dimensions: {
+                type: '4fv', 
+                value: [150.0, 150.0, 150.0, 150.0]
+            }
+        }
+    );
 
-      null,
+    this.size = 8;
+}
 
-      fs.readFileSync(__dirname + '/glow.frag', 'utf8'),
-
-    {
-        blur_w: {type: '1i', value: 8},
-        dimensions: {type: '4fv', value: [0, 0, 0, 0]}
-    }
-  );
-};
-
-GlowFilter.prototype = Object.create(core.AbstractFilter.prototype);
+GlowFilter.prototype = Object.create(PIXI.Filter.prototype);
 GlowFilter.prototype.constructor = GlowFilter;
+module.exports = GlowFilter;
 
-
-Object.defineProperty(GlowFilter.prototype, 'blur', {
-    get: function() {
-        return this.uniforms.blur_w.value;
-    },
-    set: function(value) {
-        this.dirty = true;
-        this.uniforms.blur_w.value = Math.floor(value);
+Object.defineProperties(GlowFilter.prototype, {
+    /**
+     * The pixel size used by the filter.
+     *
+     * @member {number}GlowFilter
+     * @memberof PIXI.filters.GlowFilter#
+     */
+    size: {
+        get: function ()
+        {
+            return this.uniforms.pixelSize;
+        },
+        set: function (value)
+        {
+            this.uniforms.pixelSize = value;
+        }
     }
 });
-
-module.exports = GlowFilter;

@@ -1,48 +1,66 @@
+// /**
+//  * @author Matt Smith http://gun.net.au @ktingvoar
+//  */
+// // @see https://github.com/substack/brfs/issues/25
+
+var glslify  = require('glslify');
+
+// TODO (cengler) - The Y is flipped in this shader for some reason.
+
 /**
- * @author Matt Smith http://gun.net.au @ktingvoar
+ * @author Vico @vicocotea
+ * original shader : https://www.shadertoy.com/view/lssGDj by @movAX13h
  */
 
-var core = require('../../node_modules/pixi.js/src/core');
-// @see https://github.com/substack/brfs/issues/25
-var fs = require('fs');
-
-function ShakerFilter() {
-    core.AbstractFilter.call(this,
-      
-      null,
-
-      fs.readFileSync(__dirname + '/shaker.frag', 'utf8'),
-
-
-    {
-        dimensions: {type: '4fv', value: [0, 0, 0, 0]},
-        blur: {type: '2fv', value: [5, 0]}
-    }
+/**
+ * An ASCII filter.
+ *
+ * @class
+ * @extends PIXI.Filter
+ * @memberof PIXI.filters
+ */
+function ShakerFilter()
+{
+    PIXI.Filter.call(this,
+        // vertex shader
+        glslify('../default.vert'),
+        // fragment shader
+        glslify('./shaker.frag'),
+        // uniforms
+        {
+            dimensions: {
+                type: '4fv', 
+                value: [4324.0, 10.0, 0.0, 434.0]
+            },
+            blur: {
+                type: '2fv', 
+                value: [435.0, 25.0]
+            }
+        }
     );
 
-};
+    this.size = 8;
+}
 
-ShakerFilter.prototype = Object.create(core.AbstractFilter.prototype);
+ShakerFilter.prototype = Object.create(PIXI.Filter.prototype);
 ShakerFilter.prototype.constructor = ShakerFilter;
-
-Object.defineProperty(ShakerFilter.prototype, 'blurX', {
-    get: function() {
-        return this.uniforms.blur.value[0];
-    },
-    set: function(value) {
-        this.dirty = true;
-        this.uniforms.blur.value[0] = value;
-    }
-});
-
-Object.defineProperty(ShakerFilter.prototype, 'blurY', {
-    get: function() {
-        return this.uniforms.blur.value[1];
-    },
-    set: function(value) {
-        this.dirty = true;
-        this.uniforms.blur.value[1] = value;
-    }
-});
-
 module.exports = ShakerFilter;
+
+Object.defineProperties(ShakerFilter.prototype, {
+    /**
+     * The pixel size used by the filter.
+     *
+     * @member {number}
+     * @memberof PIXI.filters.ShakerFilter#
+     */
+    size: {
+        get: function ()
+        {
+            return this.uniforms.pixelSize;
+        },
+        set: function (value)
+        {
+            this.uniforms.pixelSize = value;
+        }
+    }
+});

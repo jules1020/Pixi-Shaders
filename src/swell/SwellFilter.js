@@ -1,47 +1,60 @@
+// /**
+//  * @author Matt Smith http://gun.net.au @ktingvoar
+//  */
+// // @see https://github.com/substack/brfs/issues/25
+
+var glslify  = require('glslify');
+
+// TODO (cengler) - The Y is flipped in this shader for some reason.
+
 /**
- * @author Matt Smith http://gun.net.au @ktingvoar
+ * @author Vico @vicocotea
+ * original shader : https://www.shadertoy.com/view/lssGDj by @movAX13h
  */
-var core = require('../../node_modules/pixi.js/src/core');
-// @see https://github.com/substack/brfs/issues/25
-var fs = require('fs');
 
-function SwellFilter() {
-    PIXI.AbstractFilter.call(this,
-      
-      null,
-
-      fs.readFileSync(__dirname + '/swell.frag', 'utf8'),
-
-  {
-        rand: {type: '1f', value: 0.5},
-        timer: {type: '1f', value: 0},
-        dimensions: {type: '4fv', value: [0, 0, 0, 0]}
-    }
+/**
+ * An ASCII filter.
+ *
+ * @class
+ * @extends PIXI.Filter
+ * @memberof PIXI.filters
+ */
+function SwellFilter()
+{
+    PIXI.Filter.call(this,
+        // vertex shader
+        null,
+        // fragment shader
+        glslify('./swell.frag'),
+        {
+            rand: {type: '1f', value: 0.5},
+            timer: {type: '1f', value: 0},
+            dimensions: {type: '4fv', value: [0, 0, 0, 0]}
+        }
     );
-};
 
-SwellFilter.prototype = Object.create(core.AbstractFilter.prototype);
+    this.size = 8;
+}
+
+SwellFilter.prototype = Object.create(PIXI.Filter.prototype);
 SwellFilter.prototype.constructor = SwellFilter;
-
-Object.defineProperty(SwellFilter.prototype, 'rand', {
-    get: function() {
-        return this.uniforms.rand.value;
-    },
-    set: function(value) {
-        this.dirty = true;
-        this.uniforms.rand.value = value;
-    }
-});
-
-Object.defineProperty(SwellFilter.prototype, 'timer', {
-    get: function() {
-        return this.uniforms.timer.value;
-    },
-    set: function(value) {
-        this.dirty = true;
-        this.uniforms.timer.value = value;
-    }
-});
-
 module.exports = SwellFilter;
 
+Object.defineProperties(SwellFilter.prototype, {
+    /**
+     * The pixel size used by the filter.
+     *
+     * @member {number}
+     * @memberof PIXI.filters.SwellFilter#
+     */
+    size: {
+        get: function ()
+        {
+            return this.uniforms.pixelSize;
+        },
+        set: function (value)
+        {
+            this.uniforms.pixelSize = value;
+        }
+    }
+});

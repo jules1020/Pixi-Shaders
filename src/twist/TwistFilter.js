@@ -1,69 +1,79 @@
+// /**
+//  * @author Matt Smith http://gun.net.au @ktingvoar
+//  */
+// // @see https://github.com/substack/brfs/issues/25
+
+var glslify  = require('glslify');
+
+// TODO (cengler) - The Y is flipped in this shader for some reason.
+
 /**
- * @author Matt Smith http://gun.net.au @ktingvoar
+ * @author Vico @vicocotea
+ * original shader : https://www.shadertoy.com/view/lssGDj by @movAX13h
  */
-var core = require('../../node_modules/pixi.js/src/core');
-// @see https://github.com/substack/brfs/issues/25
-var fs = require('fs');
 
-function TwistFilter() {
-    core.AbstractFilter.call(this,
-  
-    null,
+/**
+ * An ASCII filter.
+ *
+ * @class
+ * @extends PIXI.Filter
+ * @memberof PIXI.filters
+ */
+function TwistFilter()
+{
+    PIXI.Filter.call(this,
+        // vertex shader
+        glslify('../default.vert'),
+        // fragment shader
+        glslify('./twist.frag'),
+        // uniforms
+        {
+            rand: {
+                type: '1f', 
+                value: 4.5
+            },
+            timer: {
+                type: '1f', 
+                value: 10.0
+            },
+            val2: {
+                type: '1f', 
+                value: 5.0
+            },
+            val3: {
+                type: '1f', 
+                value: 55.0
+            },
+            dimensions: {type: '4fv', 
+            value: [2.0, 2.0, 2.0, 2.0]
+        }
+        }
+    );
 
-    fs.readFileSync(__dirname + '/twist.frag', 'utf8'),
-      
-  {
-        rand: {type: '1f', value: 0.5},
-        timer: {type: '1f', value: 0},
-        val2: {type: '1f', value: 5},
-        val3: {type: '1f', value: 55},
-        dimensions: {type: '4fv', value: [0, 0, 0, 0]}
-    }
-  );
-
+    this.size = 8;
 }
 
-TwistFilter.prototype = Object.create(core.AbstractFilter.prototype);
+TwistFilter.prototype = Object.create(PIXI.Filter.prototype);
 TwistFilter.prototype.constructor = TwistFilter;
-
-Object.defineProperty(TwistFilter.prototype, 'rand', {
-    get: function() {
-        return this.uniforms.rand.value;
-    },
-    set: function(value) {
-        this.dirty = true;
-        this.uniforms.rand.value = value;
-    }
-});
-
-Object.defineProperty(TwistFilter.prototype, 'timer', {
-    get: function() {
-        return this.uniforms.timer.value;
-    },
-    set: function(value) {
-        this.dirty = true;
-        this.uniforms.timer.value = value;
-    }
-});
-
-Object.defineProperty(TwistFilter.prototype, 'val2', {
-    get: function() {
-        return this.uniforms.val2.value;
-    },
-    set: function(value) {
-        this.dirty = true;
-        this.uniforms.val2.value = value;
-    }
-});
-
-Object.defineProperty(TwistFilter.prototype, 'val3', {
-    get: function() {
-        return this.uniforms.val3.value;
-    },
-    set: function(value) {
-        this.dirty = true;
-        this.uniforms.val3.value = value;
-    }
-});
-
 module.exports = TwistFilter;
+
+Object.defineProperties(TwistFilter.prototype, {
+    /**
+     * The pixel size used by the filter.
+     *
+     * @member {number}
+     * @memberof PIXI.filters.TwistFilter#
+     */
+    size: {
+        get: function ()
+        {
+            return this.uniforms.pixelSize;
+        },
+        set: function (value)
+        {
+            this.uniforms.pixelSize = value;
+        }
+    }
+});
+
+

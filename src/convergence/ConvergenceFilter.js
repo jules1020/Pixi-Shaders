@@ -1,36 +1,71 @@
+// /**
+//  * @author Matt Smith http://gun.net.au @ktingvoar
+//  */
+// // @see https://github.com/substack/brfs/issues/25
+
+var glslify  = require('glslify');
+
+// TODO (cengler) - The Y is flipped in this shader for some reason.
+
 /**
- * @author Matt Smith http://gun.net.au @ktingvoar
+ * @author Vico @vicocotea
+ * original shader : https://www.shadertoy.com/view/lssGDj by @movAX13h
  */
-var core = require('../../node_modules/pixi.js/src/core');
-// @see https://github.com/substack/brfs/issues/25
-var fs = require('fs');
 
-function ConvergenceFilter() {
-
-    PIXI.AbstractFilter.call(this,
-
-      null,
-
-      fs.readFileSync(__dirname + '/convergence.frag', 'utf8'),
-
-      {
-        rand: {type: '1f', value: 0.5},
-        dimensions: {type: '4fv', value: [0, 0, 0, 0]}
-      }
+/**
+ * An ASCII filter.
+ *
+ * @class
+ * @extends PIXI.Filter
+ * @memberof PIXI.filters
+ */
+function ConvergenceFilter()
+{
+    PIXI.Filter.call(this,
+        // vertex shader
+        glslify('../default.vert'),
+        // fragment shader
+        glslify('./convergence.frag'),
+        // uniforms
+        {
+            red: {
+                type: '2fv',
+                value: [-10.0, 0.0]
+            },
+            blue: {
+                type: '2fv',
+                value: [0.0, 0.0]
+            },
+            green: {
+                type: '2fv',
+                value: [0.0, 10.0]
+            }
+        }
     );
-};
+   
 
-ConvergenceFilter.prototype = Object.create(core.AbstractFilter.prototype);
+    this.size = 8;
+}
+
+ConvergenceFilter.prototype = Object.create(PIXI.Filter.prototype);
 ConvergenceFilter.prototype.constructor = ConvergenceFilter;
+module.exports = ConvergenceFilter;
 
-Object.defineProperty(ConvergenceFilter.prototype, 'rand', {
-    get: function() {
-        return this.uniforms.rand.value;
-    },
-    set: function(value) {
-        this.dirty = true;
-        this.uniforms.rand.value = value;
+Object.defineProperties(ConvergenceFilter.prototype, {
+    /**
+     * The pixel size used by the filter.
+     *
+     * @member {number}
+     * @memberof PIXI.filters.ConvergenceFilter#
+     */
+    size: {
+        get: function ()
+        {
+            return this.uniforms.pixelSize;
+        },
+        set: function (value)
+        {
+            this.uniforms.pixelSize = value;
+        }
     }
 });
-
-module.exports = ConvergenceFilter;
