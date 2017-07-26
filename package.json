@@ -40,12 +40,10 @@
     "glslify": "^6.1.0",
     "pixify": "^1.9.0"
   },
-  "devDependencies": {
-      "browserify": {
-        "transform": [
-          "glslify"
-        ]
-      }
+  "browserify": {
+    "transform": [
+      "glslify"
+    ]
   },
   "license": "ISC"
 }
