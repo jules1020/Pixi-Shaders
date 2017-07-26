@@ -1,0 +1,30 @@
+NOTES
+
+Shaders to edit:
+jnoise
+	-- need to animate
+outline
+	-- need to figure out why everything turns white
+passthrough
+	-- no effect
+shaker
+	-- some effect, not sure if correct
+slitscan
+	-- black screen, no effect
+swell
+	-- black screen, no effect
+twist
+	-- black screen, no effect
+
+PACKAGES FOR SUBLIME
+ESLint
+Javascript Beautify
+Package Control
+SublimeLinter
+SublimeLinter-contrib-eslint
+SublimeLinter-jscs
+
+GET FUCKING SOURCETREE
+
+REFERENCE FOR HOW TO BUILD JSON http://browsenpm.org/package.json#main
+npm install --dev

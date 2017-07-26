@@ -1,8 +1,38 @@
 {
-  "name": "pixi-shaders",
+  "name": "Pixi-Shaders",
   "version": "1.0.0",
   "description": "pixi shaders to be updated for pixi v4",
-  "main": "index.js",
+  "author": "Julian Smith De Niro",
+  "bin": {
+    "Pixi-Shaders": "./bin/Pixi-Shaders"
+  },
+  "scripts": {
+    "build:all": "npm run build:blueinvert && npm run build:blueraise && npm run build:convergence",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:ascii": "pixify -s src/ascii -n ascii",
+    "build:blueinvert": "pixify -s src/blueinvert -n blueinvert",
+    "build:blueraise": "pixify -s src/blueraise -n blueraise",
+    "build:convergence": "pixify -s src/convergence -n convergence",
+    "build:cutslider": "pixify -s src/cutslider -n cutslider",
+    "build:glow": "pixify -s src/glow -n glow",
+    "build:greeninvert": "pixify -s src/greeninvert -n greeninvert",
+    "build:greenraise": "pixify -s src/greenraise -n greenraise",
+    "build:highcontrast": "pixify -s src/highcontrast -n highcontrast",
+    "build:invert": "pixify -s src/invert -n invert",
+    "build:jnoise": "pixify -s src/jnoise -n jnoise",
+    "build:outline": "pixify -s src/outline -n outline",
+    "build:passthrough": "pixify -s src/passthrough -n passthrough",
+    "build:redinvert": "pixify -s src/redinvert -n redinvert",
+    "build:redraise": "pixify -s src/redraise -n redraise",
+    "build:shaker": "pixify -s src/shaker -n shaker",
+    "build:slitscan": "pixify -s src/slitscan -n slitscan",
+    "build:swell": "pixify -s src/swell -n swell",
+    "build:twist": "pixify -s src/twist -n twist"
+  },
+  "repository" : {
+    "type": "git",
+    "url": "https://github.com/jules1020/Pixi-Shaders.git"
+  },
   "directories": {
     "example": "examples"
   },
@@ -10,34 +40,12 @@
     "glslify": "^6.1.0",
     "pixify": "^1.9.0"
   },
-  "devDependencies": {},
-  "browserify": {
-    "transform": [
-      "glslify"
-    ]
+  "devDependencies": {
+      "browserify": {
+        "transform": [
+          "glslify"
+        ]
+      }
   },
-  "scripts": {
-    "build:all": "npm run build:blueinvert && npm run build:blueraise && npm run build:convergence",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build:blueinvert": "pixify -s src/blueinvert -n blueinvert",
-    "build:blueraise": "pixify -s src/blueraise -n blueraise",
-    "build:convergence":"pixify -s src/convergence -n convergence",
-    "build:cutslider":"pixify -s src/cutslider -n cutslider",
-    "build:glow":"pixify -s src/glow -n glow",
-    "build:greeninvert":"pixify -s src/greeninvert -n greeninvert",
-    "build:greenraise":"pixify -s src/greenraise -n greenraise",
-    "build:highcontrast":"pixify -s src/highcontrast -n highcontrast",
-    "build:invert":"pixify -s src/invert -n invert",
-    "build:noise":"pixify -s src/noise -n noise",
-    "build:outline":"pixify -s src/outline -n outline",
-    "build:passthrough":"pixify -s src/passthrough -n passthrough",
-    "build:redinvert":"pixify -s src/redinvert -n redinvert",
-    "build:redraise":"pixify -s src/redraise -n redraise",
-    "build:shaker":"pixify -s src/shaker -n shaker",
-    "build:slitscan":"pixify -s src/slitscan -n slitscan",
-    "build:swell":"pixify -s src/swell -n swell",
-    "build:twist":"pixify -s src/twist -n twist"
-  },
-  "author": "Julian Smith De Niro",
   "license": "ISC"
 }

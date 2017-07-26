@@ -19,34 +19,43 @@ var glslify  = require('glslify');
  * @extends PIXI.Filter
  * @memberof PIXI.filters
  */
-function NoiseFilter()
+function JNoiseFilter()
 {
     PIXI.Filter.call(this,
         // vertex shader
-        null,
+        glslify('../default.vert'),
         // fragment shader
         glslify('./noise.frag'),
         // uniforms
         {
-          rand      : {type: '1f', value: 1.5},
-          strength  : {type: '1f', value: 0.25},
-          dimensions: {type: '4fv', value: [0, 0, 0, 0]}
+          rand: {
+            type: '1f', 
+            value: 1.5
+          },
+          strength: {
+            type: '1f', 
+            value: 0.25
+          },
+          dimensions: {
+            type: '4fv', 
+            value: [2.0, 2.0, 2.0, 2.0]
+          }
         }
     );
 
     this.size = 8;
 }
 
-NoiseFilter.prototype = Object.create(PIXI.Filter.prototype);
-NoiseFilter.prototype.constructor = NoiseFilter;
-module.exports = NoiseFilter;
+JNoiseFilter.prototype = Object.create(PIXI.Filter.prototype);
+JNoiseFilter.prototype.constructor = JNoiseFilter;
+module.exports = JNoiseFilter;
 
-Object.defineProperties(NoiseFilter.prototype, {
+Object.defineProperties(JNoiseFilter.prototype, {
     /**
      * The pixel size used by the filter.
      *
      * @member {number}
-     * @memberof PIXI.filters.NoiseFilter#
+     * @memberof PIXI.filters.JNoiseFilter#
      */
     size: {
         get: function ()

@@ -23,13 +23,19 @@ function SlitScanFilter()
 {
     PIXI.Filter.call(this,
         // vertex shader
-        null,
+        glslify('../default.vert'),
         // fragment shader
         glslify('./slitscan.frag'),
         // uniforms
         {
-          rand: {type: '1f', value: 15},
-          dimensions: {type: '4fv', value: [0, 0, 0, 0]}
+          rand: {
+            type: '1f', 
+            value: 15.0
+          },
+          dimensions: {
+            type: '4fv', 
+            value: [2.0, 0.0, 4.0, 0.0]
+          }
         })
 
     this.size = 8;

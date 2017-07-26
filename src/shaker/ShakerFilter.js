@@ -30,11 +30,11 @@ function ShakerFilter()
         {
             dimensions: {
                 type: '4fv', 
-                value: [4324.0, 10.0, 0.0, 434.0]
+                value: [2.0, 10.0, 0.0, 434.0]
             },
             blur: {
                 type: '2fv', 
-                value: [435.0, 25.0]
+                value: [2.0, 25.0]
             }
         }
     );

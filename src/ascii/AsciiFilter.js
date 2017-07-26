@@ -19,41 +19,28 @@ var glslify  = require('glslify');
  * @extends PIXI.Filter
  * @memberof PIXI.filters
  */
-function SwellFilter()
+function AsciiFilter()
 {
     PIXI.Filter.call(this,
         // vertex shader
-        glslify('../default.vert'),
+        null,
         // fragment shader
-        glslify('./swell.frag'),
-        {
-            rand: {
-                type: '1f', 
-                value: 0.5},
-            timer: {
-                type: '1f', 
-                value: 2.0
-            },
-            dimensions: {
-                type: '4fv', 
-                value: [1.0, 1.0, 2.0, 0.3]
-            }
-        }
+        glslify('./ascii.frag')
     );
 
     this.size = 8;
 }
 
-SwellFilter.prototype = Object.create(PIXI.Filter.prototype);
-SwellFilter.prototype.constructor = SwellFilter;
-module.exports = SwellFilter;
+AsciiFilter.prototype = Object.create(PIXI.Filter.prototype);
+AsciiFilter.prototype.constructor = AsciiFilter;
+module.exports = AsciiFilter;
 
-Object.defineProperties(SwellFilter.prototype, {
+Object.defineProperties(AsciiFilter.prototype, {
     /**
      * The pixel size used by the filter.
      *
      * @member {number}
-     * @memberof PIXI.filters.SwellFilter#
+     * @memberof PIXI.filters.AsciiFilter#
      */
     size: {
         get: function ()
