@@ -15,6 +15,16 @@ swell
 	-- black screen, no effect
 twist
 	-- black screen, no effect
+bleachbypass
+	-- not building correctly
+blend
+    -- no effect, may need animation
+    -- there are 2 frags and 2 vertexes
+chroma
+	-- no effect, may need to edit the frag
+displacement
+	-- filter registering as 'null' in console
+
 
 PACKAGES FOR SUBLIME
 ESLint
@@ -28,3 +38,4 @@ GET FUCKING SOURCETREE
 
 REFERENCE FOR HOW TO BUILD JSON http://browsenpm.org/package.json#main
 npm install --dev
+

@@ -19,22 +19,30 @@ var glslify  = require('glslify');
  * @extends PIXI.Filter
  * @memberof PIXI.filters
  */
-function AsciiFilter()
+function ChromaFilter()
 {
     PIXI.Filter.call(this,
         // vertex shader
         glslify('../default.vert'),
         // fragment shader
-        glslify('./ascii.frag'),
+        glslify('./chroma.frag'),
         // uniforms
         {
-            background: {
-                type: '4fv',
-                value: [0.0, 1.0, 1.0, 0.0]
+            screenWeight: {
+                type: '1f',
+                value: 12.0
             },
-            resolution: {
-                type:'2fv',
-                value: [0.0, 1.0]
+            balance: {
+                type: '1f',
+                value: 43.0
+            },
+            clibBlack: {
+                type: '1f',
+                value: 44.0
+            },
+            clipWhite: {
+                type: '1f',
+                value: 4.423
             }
         }
     );
@@ -42,16 +50,16 @@ function AsciiFilter()
     this.size = 8;
 }
 
-AsciiFilter.prototype = Object.create(PIXI.Filter.prototype);
-AsciiFilter.prototype.constructor = AsciiFilter;
-module.exports = AsciiFilter;
+ChromaFilter.prototype = Object.create(PIXI.Filter.prototype);
+ChromaFilter.prototype.constructor = ChromaFilter;
+module.exports = ChromaFilter;
 
-Object.defineProperties(AsciiFilter.prototype, {
+Object.defineProperties(ChromaFilter.prototype, {
     /**
      * The pixel size used by the filter.
      *
      * @member {number}
-     * @memberof PIXI.filters.AsciiFilter#
+     * @memberof PIXI.filters.ChromaFilter#
      */
     size: {
         get: function ()

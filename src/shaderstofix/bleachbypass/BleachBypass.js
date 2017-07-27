@@ -19,39 +19,28 @@ var glslify  = require('glslify');
  * @extends PIXI.Filter
  * @memberof PIXI.filters
  */
-function AsciiFilter()
+function BleachBypassFilter()
 {
     PIXI.Filter.call(this,
         // vertex shader
-        glslify('../default.vert'),
+        null,
         // fragment shader
-        glslify('./ascii.frag'),
-        // uniforms
-        {
-            background: {
-                type: '4fv',
-                value: [0.0, 1.0, 1.0, 0.0]
-            },
-            resolution: {
-                type:'2fv',
-                value: [0.0, 1.0]
-            }
-        }
+        glslify('./bleachbypass.frag')
     );
 
     this.size = 8;
 }
 
-AsciiFilter.prototype = Object.create(PIXI.Filter.prototype);
-AsciiFilter.prototype.constructor = AsciiFilter;
-module.exports = AsciiFilter;
+BleachBypassFilter.prototype = Object.create(PIXI.Filter.prototype);
+BleachBypassFilter.prototype.constructor = BleachBypassFilter;
+module.exports = BleachBypassFilter;
 
-Object.defineProperties(AsciiFilter.prototype, {
+Object.defineProperties(BleachBypassFilter.prototype, {
     /**
      * The pixel size used by the filter.
      *
      * @member {number}
-     * @memberof PIXI.filters.AsciiFilter#
+     * @memberof PIXI.filters.BleachBypassFilter#
      */
     size: {
         get: function ()

@@ -19,22 +19,30 @@ var glslify  = require('glslify');
  * @extends PIXI.Filter
  * @memberof PIXI.filters
  */
-function AsciiFilter()
+function FilmGrainFilter()
 {
     PIXI.Filter.call(this,
         // vertex shader
         glslify('../default.vert'),
         // fragment shader
-        glslify('./ascii.frag'),
+        glslify('./filmgrain.frag'),
         // uniforms
         {
-            background: {
-                type: '4fv',
-                value: [0.0, 1.0, 1.0, 0.0]
-            },
             resolution: {
-                type:'2fv',
-                value: [0.0, 1.0]
+                type: '2fv',
+                value: [2.0, 2.0]
+            },
+            time: {
+                type: '1f',
+                value: 1.0
+            },
+            amount: {
+                type: '1f',
+                value: 1.3
+            },
+            colored: {
+                type: 'bool',
+                value: true
             }
         }
     );
@@ -42,16 +50,16 @@ function AsciiFilter()
     this.size = 8;
 }
 
-AsciiFilter.prototype = Object.create(PIXI.Filter.prototype);
-AsciiFilter.prototype.constructor = AsciiFilter;
-module.exports = AsciiFilter;
+FilmGrainFilter.prototype = Object.create(PIXI.Filter.prototype);
+FilmGrainFilter.prototype.constructor = FilmGrainFilter;
+module.exports = FilmGrainFilter;
 
-Object.defineProperties(AsciiFilter.prototype, {
+Object.defineProperties(FilmGrainFilter.prototype, {
     /**
      * The pixel size used by the filter.
      *
      * @member {number}
-     * @memberof PIXI.filters.AsciiFilter#
+     * @memberof PIXI.filters.FilmGrainFilter#
      */
     size: {
         get: function ()

@@ -19,22 +19,22 @@ var glslify  = require('glslify');
  * @extends PIXI.Filter
  * @memberof PIXI.filters
  */
-function AsciiFilter()
+function KaleidoscopeFilter()
 {
     PIXI.Filter.call(this,
         // vertex shader
         glslify('../default.vert'),
         // fragment shader
-        glslify('./ascii.frag'),
+        glslify('./kaleidoscope.frag'),
         // uniforms
         {
-            background: {
-                type: '4fv',
-                value: [0.0, 1.0, 1.0, 0.0]
+            segments: {
+                type: '1f',
+                value: 0.5
             },
-            resolution: {
-                type:'2fv',
-                value: [0.0, 1.0]
+            offset: {
+                type: '1f',
+                value: 33.0
             }
         }
     );
@@ -42,16 +42,16 @@ function AsciiFilter()
     this.size = 8;
 }
 
-AsciiFilter.prototype = Object.create(PIXI.Filter.prototype);
-AsciiFilter.prototype.constructor = AsciiFilter;
-module.exports = AsciiFilter;
+KaleidoscopeFilter.prototype = Object.create(PIXI.Filter.prototype);
+KaleidoscopeFilter.prototype.constructor = KaleidoscopeFilter;
+module.exports = KaleidoscopeFilter;
 
-Object.defineProperties(AsciiFilter.prototype, {
+Object.defineProperties(KaleidoscopeFilter.prototype, {
     /**
      * The pixel size used by the filter.
      *
      * @member {number}
-     * @memberof PIXI.filters.AsciiFilter#
+     * @memberof PIXI.filters.KaleidoscopeFilter#
      */
     size: {
         get: function ()

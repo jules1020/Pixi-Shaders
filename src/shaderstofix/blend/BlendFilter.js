@@ -19,22 +19,18 @@ var glslify  = require('glslify');
  * @extends PIXI.Filter
  * @memberof PIXI.filters
  */
-function AsciiFilter()
+function BlendFilter()
 {
     PIXI.Filter.call(this,
         // vertex shader
         glslify('../default.vert'),
         // fragment shader
-        glslify('./ascii.frag'),
+        glslify('./blend.frag'),
         // uniforms
         {
-            background: {
-                type: '4fv',
-                value: [0.0, 1.0, 1.0, 0.0]
-            },
-            resolution: {
-                type:'2fv',
-                value: [0.0, 1.0]
+            opacity: {
+                type: '1f',
+                value: 100.0
             }
         }
     );
@@ -42,16 +38,16 @@ function AsciiFilter()
     this.size = 8;
 }
 
-AsciiFilter.prototype = Object.create(PIXI.Filter.prototype);
-AsciiFilter.prototype.constructor = AsciiFilter;
-module.exports = AsciiFilter;
+BlendFilter.prototype = Object.create(PIXI.Filter.prototype);
+BlendFilter.prototype.constructor = BlendFilter;
+module.exports = BlendFilter;
 
-Object.defineProperties(AsciiFilter.prototype, {
+Object.defineProperties(BlendFilter.prototype, {
     /**
      * The pixel size used by the filter.
      *
      * @member {number}
-     * @memberof PIXI.filters.AsciiFilter#
+     * @memberof PIXI.filters.BlendFilter#
      */
     size: {
         get: function ()

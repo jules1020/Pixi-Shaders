@@ -19,39 +19,28 @@ var glslify  = require('glslify');
  * @extends PIXI.Filter
  * @memberof PIXI.filters
  */
-function AsciiFilter()
+function DisplacementFilter()
 {
     PIXI.Filter.call(this,
         // vertex shader
-        glslify('../default.vert'),
+        glslify('./displacement.vert'),
         // fragment shader
-        glslify('./ascii.frag'),
-        // uniforms
-        {
-            background: {
-                type: '4fv',
-                value: [0.0, 1.0, 1.0, 0.0]
-            },
-            resolution: {
-                type:'2fv',
-                value: [0.0, 1.0]
-            }
-        }
+        glslify('./displacement.frag')
     );
 
     this.size = 8;
 }
 
-AsciiFilter.prototype = Object.create(PIXI.Filter.prototype);
-AsciiFilter.prototype.constructor = AsciiFilter;
-module.exports = AsciiFilter;
+DisplacementFilter.prototype = Object.create(PIXI.Filter.prototype);
+DisplacementFilter.prototype.constructor = DisplacementFilter;
+module.exports = DisplacementFilter;
 
-Object.defineProperties(AsciiFilter.prototype, {
+Object.defineProperties(DisplacementFilter.prototype, {
     /**
      * The pixel size used by the filter.
      *
      * @member {number}
-     * @memberof PIXI.filters.AsciiFilter#
+     * @memberof PIXI.filters.DisplacementFilter#
      */
     size: {
         get: function ()

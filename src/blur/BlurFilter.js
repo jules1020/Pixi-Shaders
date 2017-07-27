@@ -19,39 +19,28 @@ var glslify  = require('glslify');
  * @extends PIXI.Filter
  * @memberof PIXI.filters
  */
-function AsciiFilter()
+function BlurFilter()
 {
     PIXI.Filter.call(this,
         // vertex shader
-        glslify('../default.vert'),
+        glslify('./blur.vert'),
         // fragment shader
-        glslify('./ascii.frag'),
-        // uniforms
-        {
-            background: {
-                type: '4fv',
-                value: [0.0, 1.0, 1.0, 0.0]
-            },
-            resolution: {
-                type:'2fv',
-                value: [0.0, 1.0]
-            }
-        }
+        glslify('./blur.frag')
     );
 
     this.size = 8;
 }
 
-AsciiFilter.prototype = Object.create(PIXI.Filter.prototype);
-AsciiFilter.prototype.constructor = AsciiFilter;
-module.exports = AsciiFilter;
+BlurFilter.prototype = Object.create(PIXI.Filter.prototype);
+BlurFilter.prototype.constructor = BlurFilter;
+module.exports = BlurFilter;
 
-Object.defineProperties(AsciiFilter.prototype, {
+Object.defineProperties(BlurFilter.prototype, {
     /**
      * The pixel size used by the filter.
      *
      * @member {number}
-     * @memberof PIXI.filters.AsciiFilter#
+     * @memberof PIXI.filters.BlurFilter#
      */
     size: {
         get: function ()
