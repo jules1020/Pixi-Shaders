@@ -17,10 +17,4 @@ app.ticker.add(function() {
 
 window._imageToFilter = imageToFilter;
 
-_imageToFilter.filters = [new PIXI.filters.KaleidoscopeFilter()];
-
-// Creating tween
-// TweenLite.to(imageToFilter.filters[0], 2.5, {
-//     x: 1100,
-//     alpha: 0,
-// });
+_imageToFilter.filters = [new PIXI.filters.LutFilter()];

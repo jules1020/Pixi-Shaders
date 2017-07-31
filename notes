@@ -25,6 +25,24 @@ chroma
 displacement
 	-- filter registering as 'null' in console
 
+***************************** TRY CHANGING 'defaultValue' UNIFORM TO 'value' **************************************
+lumakey
+	-- no effect, nothing happened when animated
+nightvision
+	-- need to fix frag; partially dependent on original js
+opticalflow
+	-- black screen, no effect, nothing happened with animation, not catching errors
+panorama
+	-- frag dependent on function from original js
+pixelate
+	-- black screen, no effect
+******************************************************************************************************************
+sepia
+	-- something wrong with the way the matrix is declared
+temperature
+	-- black screen, no effect
+tvglitch
+	-- need to work on the fragment, dependent on original js
 
 PACKAGES FOR SUBLIME
 ESLint
