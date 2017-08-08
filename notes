@@ -24,6 +24,8 @@ chroma
 	-- no effect, may need to edit the frag
 displacement
 	-- filter registering as 'null' in console
+tone
+	-- no longer has a defined value?? check the git you pulled from
 
 ***************************** TRY CHANGING 'defaultValue' UNIFORM TO 'value' **************************************
 lumakey
@@ -43,6 +45,8 @@ temperature
 	-- black screen, no effect
 tvglitch
 	-- need to work on the fragment, dependent on original js
+ascii
+	-- fix fragment location, may need to be updated?
 
 PACKAGES FOR SUBLIME
 ESLint

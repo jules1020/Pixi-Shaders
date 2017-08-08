@@ -25,34 +25,7 @@ function SepiaFilter()
         // vertex shader
         glslify('../default.vert'),
         // fragment shader
-        glslify('./sepia.frag'),
-        // uniforms
-        {
-            source: {
-                    type: 'image',
-                    uniform: 'source'
-                },
-            light: {
-                type: '4fv',
-                uniform: 'light',
-                value: [1.0, 0.9, 0.5, 1.0]
-            },
-            dark: {
-                type: '4fv',
-                uniform: 'dark',
-                value: [0.2, 0.05, 0.0, 1.0]
-            },
-            toned: {
-                type: 'f',
-                uniform: 'toned',
-                value: 1.0,
-            },
-            desat: {
-                type: 'f',
-                uniform: 'desat',
-                value: 0.5
-            }
-        }
+        glslify('./tone.frag')
     );
 
     this.size = 8;

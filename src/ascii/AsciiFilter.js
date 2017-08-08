@@ -23,18 +23,14 @@ function AsciiFilter()
 {
     PIXI.Filter.call(this,
         // vertex shader
-        glslify('../default.vert'),
+        glslify('./ascii.vert'),
         // fragment shader
         glslify('./ascii.frag'),
         // uniforms
         {
-            background: {
-                type: '4fv',
-                value: [0.0, 1.0, 1.0, 0.0]
-            },
-            resolution: {
-                type:'2fv',
-                value: [0.0, 1.0]
+            pixelSize: {
+                type: 'f',
+                value: 0.04
             }
         }
     );

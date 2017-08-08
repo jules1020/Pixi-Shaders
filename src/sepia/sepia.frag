@@ -8,14 +8,13 @@ uniform vec4 dark;
 uniform float desat;
 uniform float toned;
 
-const mat4 coeff = mat4(
-    0.393, 0.349, 0.272, 1.0,
-    0.796, 0.686, 0.534, 1.0,
-    0.189, 0.168, 0.131, 1.0,
-    0.0, 0.0, 0.0, 1.0
-);
+const vec3 lumcoeff = vec3(0.2125,0.7154,0.0721);
 
 void main(void) {
 	vec4 sourcePixel = texture2D(source, vTextureCoord);
-	gl_FragColor = coeff * sourcePixel;
+	vec3 sceneColor = light.rgb * sourcePixel.rgb;
+	vec3 gray = vec3(dot(lumcoeff, sceneColor));
+	vec3 muted = mix(sceneColor, gray, desat);
+	vec3 tonedColor = mix(dark.rgb, light.rgb, gray);
+	gl_FragColor = vec4(mix(muted, tonedColor, toned), sourcePixel.a);
 }

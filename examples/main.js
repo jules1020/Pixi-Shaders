@@ -17,4 +17,4 @@ app.ticker.add(function() {
 
 window._imageToFilter = imageToFilter;
 
-_imageToFilter.filters = [new PIXI.filters.LutFilter()];
+_imageToFilter.filters = [new PIXI.filters.AsciiFilter()];

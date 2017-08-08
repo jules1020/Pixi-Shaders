@@ -1,24 +1,19 @@
 precision mediump float;
-varying vec2 vTextureCoord;
-uniform sampler2D source;
-uniform sampler2D letters;
-uniform vec4 background;
-uniform vec2 resolution;
 
-const vec3 lumcoeff = vec3(0.2125, 0.7154, 0.0721);
-const vec2 fontSize = vec2(8.0, 8.0);
+uniform sampler2D uTexture;
+varying vec2 vUv;
 
-vec4 lookup(float ascii) {
-   vec2 pos = mod(vTextureCoord * resolution, fontSize) / vec2(752.0, fontSize.x) + vec2(ascii, 0.0);
-   return texture2D(letters, pos);
+float luma(vec3 color) {
+  return dot(color, vec3(0.299, 0.587, 0.114));
 }
 
-void main(void) {
-   vec4 sample = texture2D(source, vTextureCoord);
-   vec4 clamped = vec4(floor(sample.rgb * 8.0) / 8.0, sample.a);
+float luma(vec4 color) {
+  return dot(color.rgb, vec3(0.299, 0.587, 0.114));
+}
 
-   float luma = dot(sample.rgb,lumcoeff);
-   float char = floor(luma * 94.0) / 94.0;
+void main() {
+  vec4 color = texture2D(uTexture, vUv);
+  float brightness = luma(color);
 
-   gl_FragColor = mix(background, clamped, lookup(char).r);
+  gl_FragColor = vec4(vec3(brightness), 1.0);
 }
